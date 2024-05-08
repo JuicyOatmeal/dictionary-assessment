@@ -16,7 +16,7 @@ def get_database():
 
 @app.route('/')
 def render_home():
-    con = connect(database)
+    con = get_database()
 
     return render_template('home.html')
 
