@@ -10,13 +10,14 @@
     </container>
 </body>
 {% block main %}
-        {% for word in words %}
+    <h1>DICTONARY</h1>
+        {% for word in engwords %}
             <div class="word_box">
-                <div class="heading">
+                <div class="heading1">
                     <h3>{{ word }}</h3>
                 </div>
-                <div class="otherword">
-
+                <div class="heading2">
+                    <h4>{{ tereowords[word] }}</h4>
                 </div>
             </div>
         {% endfor %}
