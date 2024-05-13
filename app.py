@@ -3,12 +3,12 @@ import sqlite3
 from sqlite3 import Error, connect
 
 app = Flask(__name__)
-database = "databases.db"
+database = "C:/Users/20249/OneDrive - Wellington College/13dts/assesmetn/dbs"
 
 
-def get_database():
+def get_database(database_file):
     try:
-        returned_db = sqlite3.connect(database)
+        returned_db = sqlite3.connect(database_file)
         return returned_db
     except Error as error:
         print(error)
@@ -16,9 +16,13 @@ def get_database():
 
 @app.route('/')
 def render_home():
-    con = get_database()
-
-    return render_template('home.html')
+    con = get_database(database)
+    query = "SELECT englishword, tereoword FROM words"
+    cur = con.cursor()
+    cur.execute(query)
+    langwords = cur.fetchall()
+    con.close()
+    return render_template('home.html', words=langwords)
 
 
 if __name__ == '__main__':
