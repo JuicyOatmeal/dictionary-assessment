@@ -17,16 +17,11 @@ def get_database(database_file):
 @app.route('/')
 def render_home():
     con = get_database(database)
-    query = "SELECT englishword FROM words"
+    query = "SELECT primarykey, englishword, tereoword, category, definition, level FROM words"
     cur = con.cursor()
     cur.execute(query)
-    base_word = cur.fetchall()
-    query = "SELECT tereoword FROM words"
-    cur = con.cursor()
-    cur.execute(query)
-    te_reo_words = cur.fetchall()
-    con.close()
-    return render_template('home.html', engwords=base_word, tereowords=te_reo_words)
+    info = cur.fetchall()
+    return render_template('home.html', words_table=info)
 
 
 if __name__ == '__main__':
