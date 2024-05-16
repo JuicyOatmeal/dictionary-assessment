@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Words</title>
+</head>
+<body>
+
+</body>
+{% block main %}
+    <h4><a href="/home"> home </a></h4>
+    <h2>all words:</h2>
+        {% for word in words_table %}
+            <div class="word_box">
+                <h3>{{ word[1] }} <> {{ word[2] }}</h3>
+                <!--<img src="static/images/{{ word }}.png">-->
+            </div>
+        {% endfor %}
+{% endblock %}
+</html>

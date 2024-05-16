@@ -6,15 +6,9 @@
 </head>
 <body>
     <container>
-
+        <h1>Dictionary Home</h1>
+        <h4><a href="/all_words"> : click here for all words :</a></h4>
+        <h4><a href="/category_list">: click here for category list :</a></h4>
     </container>
 </body>
-{% block main %}
-    <h1>DICTONARY</h1>
-        {% for word in words_table %}
-            <div class="word_box">
-                <h3>{{ word[1] }} <> {{ word[2] }}</h3>
-            </div>
-        {% endfor %}
-{% endblock %}
 </html>

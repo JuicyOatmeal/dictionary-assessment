@@ -14,14 +14,34 @@ def get_database(database_file):
         print(error)
 
 
-@app.route('/')
+@app.route('/home')
 def render_home():
+    return render_template('home.html')
+
+
+@app.route('/all_words')
+def render_all_words():
     con = get_database(database)
     query = "SELECT primarykey, englishword, tereoword, category, definition, level FROM words"
     cur = con.cursor()
     cur.execute(query)
     info = cur.fetchall()
-    return render_template('home.html', words_table=info)
+    return render_template('all_words.html', words_table=info)
+
+
+@app.route('/category_list')
+def render_category_list():
+    con = get_database(database)
+    query = "SELECT category FROM words"
+    cur = con.cursor()
+    cur.execute(query)
+    info = cur.fetchall()
+    return render_template("category_list.html", category=info)
+
+
+@app.route('/all_words/word')
+def render_word():
+    return render_template("word.html")#, word=all)
 
 
 if __name__ == '__main__':
