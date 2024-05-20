@@ -39,10 +39,5 @@ def render_category_list():
     return render_template("category_list.html", category=info)
 
 
-@app.route('/all_words/word')
-def render_word():
-    return render_template("word.html")#, word=all)
-
-
 if __name__ == '__main__':
     app.run()
