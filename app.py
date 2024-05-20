@@ -22,11 +22,22 @@ def render_home():
 @app.route('/all_words')
 def render_all_words():
     con = get_database(database)
-    query = "SELECT primarykey, englishword, tereoword, category, definition, level FROM words"
+    query = "SELECT primarykey, englishword, tereoword FROM words"
     cur = con.cursor()
     cur.execute(query)
     info = cur.fetchall()
     return render_template('all_words.html', words_table=info)
+
+
+@app.route('/all_words/<word>')
+def render_specific_word(word):
+    con = get_database(database)
+    query = "SELECT englishword, tereoword, category, definition, level FROM words WHERE englishword=?"
+    cur = con.cursor()
+    cur.execute(query, (word,))
+    info = cur.fetchall()
+    print(info)
+    return render_template('specific_word.html', word_info=info, passing_word=word)
 
 
 @app.route('/category_list')
