@@ -5,6 +5,7 @@
     <title>Login</title>
 </head>
 {% block main %}
+    <h4><a href="/"> base </a></h4>
     <a href="/login">already have an account? login</a>
 <form class="signup" method="post">
     <div class="group">
@@ -32,11 +33,16 @@
         <div class="element"><input type="password" name="password2" id="password2" required></div>
     </div>
     <div class="error">{{ password2_error }}</div>
+    <div class="group">
+        <input type="checkbox" id="usertype" name="usertype"/>
+        <label for="usertype">Teacher?</label>
+
     </div>
     <div class="group">
         <div class="label"></div>
         <div class="element"><input type="submit" value="Signup"></div>
     </div>
+
 </form>
 {% endblock %}
 </html>

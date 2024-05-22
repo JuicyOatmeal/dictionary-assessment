@@ -3,5 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+
 </head>
+<h4><a href="/"> base </a></h4>
+<form class="login" method="post">
+    <div class="group">
+        <div class="label">Email:</div>
+            <div class="element"><input type="email" name="email" id="email" required></div>
+        </div>
+        <div class="error">{{ email_error }}</div>
+        <div class="group">
+           <div class="label">Password:</div>
+       <div class="element"><input type="password" name="password" id="password" required></div>
+    </div>
+    <div class="error">{{ password_error }}</div>
+       <div class="group">
+          <div class="label"></div>
+          <div class="element"><input type="submit" value="login"></div>
+      </div>
+</form>
 </html>
