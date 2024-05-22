@@ -14,6 +14,16 @@ def get_database(database_file):
         print(error)
 
 
+@app.route('/', methods=['POST', 'GET'])
+def render_signup():
+    return render_template('signup.html')
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def render_login():
+    return render_template('login.html')
+
+
 @app.route('/home')
 def render_home():
     return render_template('home.html')

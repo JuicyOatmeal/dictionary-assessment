@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+{% block main %}
+    <a href="/login">already have an account? login</a>
+<form class="signup" method="post">
+    <div class="group">
+        <div class="label">First Name:</div>
+        <div class="element"><input type="text" name="firstname" id="firstname" required></div>
+    </div>
+    <div class="error">{{ firstname_error }}</div>
+    <div class="group">
+        <div class="label">Last Name:</div>
+        <div class="element"><input type="text" name="lastname" id="lastname" required></div>
+    </div>
+    <div class="error">{{ lastname_error }}</div>
+    <div class="group">
+        <div class="label">Email:</div>
+        <div class="element"><input type="email" name="email" id="email" required></div>
+    </div>
+    <div class="error">{{ email_error }}</div>
+    <div class="group">
+        <div class="label">Password:</div>
+        <div class="element"><input type="password" name="password" id="password" required></div>
+    </div>
+    <div class="error">{{ password_error }}</div>
+    <div class="group">
+        <div class="label">Confirm Password:</div>
+        <div class="element"><input type="password" name="password2" id="password2" required></div>
+    </div>
+    <div class="error">{{ password2_error }}</div>
+    </div>
+    <div class="group">
+        <div class="label"></div>
+        <div class="element"><input type="submit" value="Signup"></div>
+    </div>
+</form>
+{% endblock %}
+</html>
