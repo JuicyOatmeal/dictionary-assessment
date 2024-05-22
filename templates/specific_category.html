@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word: {{ passing_category.capitalize() }}</title>
+</head>
+<body>
+<h4><a href="/category_list"> back </a></h4>
+{% block main %}
+    <h2>{{  passing_category  }}</h2>
+        {% for word in category %}
+            <div class="word_box">
+                <h3><a href="/all_words/{{ word[0].lower() }}">{{ word[0].lower() }} <> {{ word[1].lower() }}</a></h3>
+            </div>
+        {% endfor %}
+{% endblock %}
+</body>
+</html>

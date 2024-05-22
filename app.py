@@ -50,5 +50,15 @@ def render_category_list():
     return render_template("category_list.html", category=info)
 
 
+@app.route('/category_list/<category>')
+def render_specific_category(category):
+    con = get_database(database)
+    query = "SELECT englishword, tereoword FROM words WHERE category=?"
+    cur = con.cursor()
+    cur.execute(query, (category,))
+    info = cur.fetchall()
+    return render_template("specific_category.html", category=info, passing_category=category)
+
+
 if __name__ == '__main__':
     app.run()

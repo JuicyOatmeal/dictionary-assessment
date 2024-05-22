@@ -5,13 +5,15 @@
     <title>Word: {{ passing_word.capitalize() }}</title>
 </head>
 <body>
-<h4><a href="/all_words"> back </a></h4>
+<h4><a href="/home"> home </a></h4>
 {% for word in word_info %}
     <h2>English Word: {{ word[0] }}</h2>
     <h2>Te Reo Word: {{ word[1] }}</h2>
     <h2>Category: {{ word[2] }}</h2>
     <h2>Definition: {{ word[3] }}</h2>
     <h2>Level: {{ word[4] }}</h2>
+    <img src="C:/Users/20249/OneDrive - Wellington College/13dts/assesmetn/static/images/{{ word[0] }}.png">
+    <img src="C:/Users/20249/OneDrive - Wellington College/13dts/assesmetn/static/images/{{ word[0] }}.jpg">
 
 {% endfor %}
 </body>
