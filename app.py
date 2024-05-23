@@ -4,8 +4,9 @@ from sqlite3 import Error, connect
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-database = "C:/Users/Felix/PycharmProjects/dictionary-assessment/dbs"#"C:/Users/20249/OneDrive - Wellington College/13dts/assesmetn/dbs"
+database = "C:/Users/20249/OneDrive - Wellington College/13dts/assesmetn/dbs"#"C:/Users/Felix/PycharmProjects/dictionary-assessment/dbs"
 app.secret_key = "bling bloing i love keyyyyyyyyyyysssssssssssssssssssssssss :)))))))))))))))))))))))))))))))))))))) ok "
+
 
 def get_database(database_file):
     try:
@@ -18,6 +19,7 @@ def get_database(database_file):
 @app.route("/")
 def render_base():
     return render_template('base.html')
+
 
 @app.route('/signup', methods=['POST', 'GET'])
 def render_signup():
@@ -132,13 +134,56 @@ def render_specific_category(category):
     return render_template("specific_category.html", category=info, passing_category=category)
 
 
-@app.route('/all_words/<word>/delete')
+@app.route('/all_words/<word>/delete', methods=['POST', 'GET'])
 def render_delete(word):
+    print(word)
     if 'usertype' in session:
-        if session['usertype'] == 'teacher':
-            return render_template("delete.html")
+        if session['usertype'] == 'student':
+            return redirect(request.referrer + '?error=no+permission')
+        else:
+            if request.method == 'POST':
+                con = get_database(database)
+                query = "DELETE FROM words WHERE englishword=?"
+                cur = con.cursor()
+                print(1)
+                try:
+                    cur.execute(query, (word,))
+                    var = cur.fetchall()
+                    con.commit()
+                    con.close()
+                    return redirect('/home?deleted')
+                except sqlite3.IntegrityError:
+                    return redirect('/?failed')
+            else:
+                return render_template('delete.html')
     else:
-        return redirect(request.referrer + '?error=no+permission')
+        return redirect('/signup?no+session+detected')
+
+
+@app.route('/all_words/add', methods=['POST', 'GET'])
+def render_add():
+    if 'usertype' in session:
+        if session['usertype'] == 'student':
+            return redirect(request.referrer + '?error=no+permission')
+        else:
+            if request.method == 'POST':
+                englishword = request.form.get('englishword').lower().strip()
+                tereoword = request.form.get('tereoword').lower().strip()
+                category = request.form.get('category').lower().strip()
+                definition = request.form.get('definition')
+                level = request.form.get('level')
+                con = get_database(database)
+                query = "INSERT INTO words ('englishword', 'tereoword', 'category', 'definition', 'level') VALUES (?, ?, ?, ?, ?)"
+                cur = con.cursor()
+                cur.execute(query, (englishword, tereoword, category, definition, level))
+                con.commit()
+                con.close()
+                return redirect('/home?added')
+            else:
+                return render_template('add.html')
+    else:
+        return redirect('/signup?no+session+detected')
+
 
 @app.route('/logout')
 def logout():
