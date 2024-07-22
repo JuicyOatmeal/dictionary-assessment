@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
 from sqlite3 import Error, connect
+from datetime import datetime, timezone
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
@@ -106,7 +107,7 @@ def render_all_words():
 @app.route('/all_words/<word>')
 def render_specific_word(word):
     con = get_database(database)
-    query = "SELECT englishword, tereoword, category, definition, level FROM words WHERE englishword=?"
+    query = "SELECT englishword, tereoword, category, definition, level, submitdate FROM words WHERE englishword=?"
     cur = con.cursor()
     cur.execute(query, (word,))
     info = cur.fetchall()
@@ -172,10 +173,11 @@ def render_add():
                 category = request.form.get('category').lower().strip()
                 definition = request.form.get('definition')
                 level = request.form.get('level')
+                submitdate = datetime.now(timezone.utc)
                 con = get_database(database)
-                query = "INSERT INTO words ('englishword', 'tereoword', 'category', 'definition', 'level') VALUES (?, ?, ?, ?, ?)"
+                query = "INSERT INTO words ('englishword', 'tereoword', 'category', 'definition', 'level', submitdate)  VALUES (?, ?, ?, ?, ?, ?)"
                 cur = con.cursor()
-                cur.execute(query, (englishword, tereoword, category, definition, level))
+                cur.execute(query, (englishword, tereoword, category, definition, level, submitdate))
                 con.commit()
                 con.close()
                 return redirect('/home?added')
