@@ -6,18 +6,18 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 database = "C:/Users/20249/OneDrive - Wellington College/13dts/assesmetn/dbs"#"C:/Users/Felix/PycharmProjects/dictionary-assessment/dbs"
-app.secret_key = "bling bloing i love keyyyyyyyyyyysssssssssssssssssssssssss :)))))))))))))))))))))))))))))))))))))) ok "
+app.secret_key = "bling bloing i love keyyyyyyyyyyysssssssssssssssssssssssss :)))))))))))))))))))))))))))))))))))))) ok"
 
 
-def get_database(database_file):
+def get_database(database_file):  # finds the database so that the program can use it to store data.
     try:
         returned_db = sqlite3.connect(database_file)
         return returned_db
-    except Error as error:
+    except Error as error:  # protection in case of errors.
         print(error)
 
 
-@app.route("/")
+@app.route("/")  #
 def render_base():
     return render_template('base.html')
 
